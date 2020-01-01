@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zefugi.Digraph", "Zefugi.Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zefugi.Digraph.Tests", "Zefugi.Digraph.Tests\Zefugi.Digraph.Tests.csproj", "{7F123D1D-3F22-40CE-BE6A-85471CACE483}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{AA42060F-E65F-4BEC-B261-0AA271F55390}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7F123D1D-3F22-40CE-BE6A-85471CACE483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F123D1D-3F22-40CE-BE6A-85471CACE483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F123D1D-3F22-40CE-BE6A-85471CACE483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA42060F-E65F-4BEC-B261-0AA271F55390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA42060F-E65F-4BEC-B261-0AA271F55390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA42060F-E65F-4BEC-B261-0AA271F55390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA42060F-E65F-4BEC-B261-0AA271F55390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
