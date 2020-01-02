@@ -8,14 +8,24 @@ using Newtonsoft.Json;
 
 namespace Zefugi.Digraph
 {
-    public class PolyNode : IEnumerable<PolyNode>
+    [JsonObject(IsReference = true)]
+    public class PolyNode
     {
+        public static PolyNode FromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<PolyNode>(json);
+        }
+
+        [JsonProperty]
         private PolyNode _parent;
 
+        [JsonProperty]
         private string _name = "Unnamed";
 
+        [JsonProperty]
         private Dictionary<string, PolyNode> _nodes = new Dictionary<string, PolyNode>();
 
+        [JsonIgnore]
         public PolyNode Parent
         {
             get { return _parent; }
@@ -26,6 +36,7 @@ namespace Zefugi.Digraph
             }
         }
 
+        [JsonIgnore]
         public string Name
         {
             get { return _name; }
@@ -36,15 +47,17 @@ namespace Zefugi.Digraph
                 if(_parent != null)
                 {
                     string lowName = value.ToLower();
-                    if (_parent.Contains(lowName))
+                    if (_parent != null && _parent.Contains(lowName))
                         throw new Exception("A node with that name already exiists.");
                 }
                 _name = value;
             }
         }
 
+        [JsonIgnore]
         public int Count { get { return _nodes.Count; } }
 
+        [JsonIgnore]
         public string Path
         {
             get
@@ -67,6 +80,7 @@ namespace Zefugi.Digraph
             }
         }
 
+        [JsonIgnore]
         public PolyNode Root
         {
             get
@@ -114,11 +128,7 @@ namespace Zefugi.Digraph
             return _nodes.Values.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _nodes.Values.GetEnumerator();
-        }
-
+        [JsonIgnore]
         public PolyNode this[int index]
         {
             get
@@ -133,6 +143,7 @@ namespace Zefugi.Digraph
             }
         }
 
+        [JsonIgnore]
         public PolyNode this[string name]
         {
             get
@@ -146,7 +157,7 @@ namespace Zefugi.Digraph
 
         public override string ToString()
         {
-            return Name + " as Json:\n" + JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

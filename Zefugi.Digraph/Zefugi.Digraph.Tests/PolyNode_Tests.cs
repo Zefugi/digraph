@@ -14,7 +14,7 @@ namespace Zefugi.Digraph.Tests
         public void ToString_Test()
         {
             var root = new PolyNode();
-            root.Add(new PolyNode() { Name = "Alpha" });
+            root.Add(new PolyNode() { Name = "Root" });
             Debug.WriteLine(root);
         }
     }
