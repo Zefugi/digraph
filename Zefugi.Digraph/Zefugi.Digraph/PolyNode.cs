@@ -13,7 +13,16 @@ namespace Zefugi.Digraph
     {
         public static PolyNode FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<PolyNode>(json);
+            if (json == null)
+                throw new ArgumentNullException("json");
+            try
+            {
+                return JsonConvert.DeserializeObject<PolyNode>(json);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Invalid JSON string.", ex);
+            }
         }
 
         [JsonProperty]
@@ -94,6 +103,8 @@ namespace Zefugi.Digraph
 
         public void Add(PolyNode node)
         {
+            if (node == null)
+                throw new ArgumentNullException("node");
             string lowName = node.Name.ToLower();
             if (_nodes.ContainsKey(lowName))
                 throw new Exception("A node with that name alread exists.");
@@ -103,23 +114,27 @@ namespace Zefugi.Digraph
 
         public void Remove(PolyNode node)
         {
+            if (node == null)
+                throw new ArgumentNullException("node");
             string lowName = node.Name.ToLower();
             if (!_nodes.ContainsKey(lowName))
                 throw new Exception("No such node found.");
             _nodes.Remove(lowName);
-            node.Parent = null;
+            node._parent = null;
         }
 
         public void Clear()
         {
             using (var ptr = _nodes.GetEnumerator())
                 while (ptr.MoveNext())
-                    ptr.Current.Value.Parent = null;
+                    ptr.Current.Value._parent = null;
             _nodes.Clear();
         }
 
         public bool Contains(string name)
         {
+            if (name == null)
+                throw new ArgumentNullException("name");
             return _nodes.ContainsKey(name.ToLower());
         }
 
@@ -134,7 +149,7 @@ namespace Zefugi.Digraph
             get
             {
                 var ptr = _nodes.GetEnumerator();
-                for(int i = 0; i < index; i++)
+                for(int i = 0; i <= index; i++)
                 {
                     if (!ptr.MoveNext())
                         return null;
@@ -148,6 +163,8 @@ namespace Zefugi.Digraph
         {
             get
             {
+                if (name == null)
+                    throw new ArgumentNullException("name");
                 string lowName = name.ToLower();
                 if(!_nodes.ContainsKey(lowName))
                     throw new Exception("No such node found.");
