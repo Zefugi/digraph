@@ -201,6 +201,7 @@ namespace Zefugi.Digraph.Tests
             Assert.IsTrue(list.Contains(alpha));
             Assert.IsTrue(list.Contains(beta));
         }
+
         [Test]
         public void ToString_Test()
         {
@@ -209,9 +210,9 @@ namespace Zefugi.Digraph.Tests
             root.Add(new PolyNode() { Name = "Alpha" });
             var b = root.ToString();
 
-            var reA = PolyNode.FromJson(a);
+            var reA = PolyNode.FromJson<PolyNode>(a);
             var aa = reA.ToString();
-            var reB = PolyNode.FromJson(b);
+            var reB = PolyNode.FromJson<PolyNode>(b);
             var bb = reB.ToString();
 
             Assert.AreEqual(a, aa);

@@ -11,13 +11,14 @@ namespace Zefugi.Digraph
     [JsonObject(IsReference = true)]
     public class PolyNode
     {
-        public static PolyNode FromJson(string json)
+        public static PolyNode FromJson<T>(string json)
+            where T : PolyNode
         {
             if (json == null)
                 throw new ArgumentNullException("json");
             try
             {
-                return JsonConvert.DeserializeObject<PolyNode>(json);
+                return JsonConvert.DeserializeObject<T>(json);
             }
             catch (Exception ex)
             {
