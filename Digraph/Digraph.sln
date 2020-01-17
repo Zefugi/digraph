@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zefugi.Digraph.Dom", "Zefugi.Digraph.Dom\Zefugi.Digraph.Dom.csproj", "{B7118438-EFBB-4451-B24A-DE8FFA7EB483}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zefugi.Digraph.Dom.Tests", "Zefugi.Digraph.Dom.Tests\Zefugi.Digraph.Dom.Tests.csproj", "{22E2EE15-9EBB-4ACF-B258-B5A72BF9C333}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B7118438-EFBB-4451-B24A-DE8FFA7EB483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7118438-EFBB-4451-B24A-DE8FFA7EB483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7118438-EFBB-4451-B24A-DE8FFA7EB483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E2EE15-9EBB-4ACF-B258-B5A72BF9C333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E2EE15-9EBB-4ACF-B258-B5A72BF9C333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E2EE15-9EBB-4ACF-B258-B5A72BF9C333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E2EE15-9EBB-4ACF-B258-B5A72BF9C333}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
