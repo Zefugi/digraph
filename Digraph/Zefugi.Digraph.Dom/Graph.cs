@@ -10,6 +10,21 @@ namespace Zefugi.Digraph.Dom
     {
         public string Name { get; set; }
 
-        public readonly List<Node> Nodes = new List<Node>();
+        public readonly ObservableList<Node> Nodes = new ObservableList<Node>();
+
+        public Graph()
+        {
+            Nodes.ListChanged += Nodes_ListChanged;
+        }
+
+        private void Nodes_ListChanged(object sender, ObservableList<Node>.ChangeEventArgs e)
+        {
+            if(e.OldItems != null)
+                foreach (var item in e.OldItems)
+                    item.Graph = null;
+            if(e.NewItems != null)
+                foreach (var item in e.NewItems)
+                    item.Graph = this;
+        }
     }
 }

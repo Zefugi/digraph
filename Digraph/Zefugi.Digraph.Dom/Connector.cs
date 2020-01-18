@@ -16,6 +16,6 @@ namespace Zefugi.Digraph.Dom
 
         public ConnectorDirection Direction { get; set; }
 
-        internal List<Connection> _connections = new List<Connection>();
+        internal ObservableList<Connection> _connections = new ObservableList<Connection>();
     }
 }
