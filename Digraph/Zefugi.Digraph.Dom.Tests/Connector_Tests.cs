@@ -42,9 +42,13 @@ namespace Zefugi.Digraph.Dom.Tests
                 Type = typeB,
                 MaxConnections = maxB,
             };
-            var resA = a.TryConnect<Connection>(b);
-            var resB = a.TryConnect<Connection>(c);
+            var resA = a.TryConnect<Connection>(b, out Connection connA);
+            var resB = a.TryConnect<Connection>(c, out Connection connB);
             Assert.IsFalse(expectedResultA == null && expectedResultB == null);
+            Assert.IsTrue(resA != ConnectionResult.Success || connA != null);
+            Assert.IsTrue(resA == ConnectionResult.Success || connA == null);
+            Assert.IsTrue(resB != ConnectionResult.Success || connB != null);
+            Assert.IsTrue(resB == ConnectionResult.Success || connB == null);
             if (expectedResultA != null)
                 Assert.AreEqual(expectedResultA, resA);
             if(expectedResultB != null)

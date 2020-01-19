@@ -20,7 +20,7 @@ namespace Zefugi.Digraph.Dom
 
         internal ObservableList<Connection> _connections = new ObservableList<Connection>();
 
-        public ConnectionResult TryConnect<T>(Connector target)
+        public ConnectionResult TryConnect<T>(Connector target, out Connection connection)
             where T : Connection, new()
         {
             ConnectionResult result = ConnectionResult.Success;
@@ -33,13 +33,22 @@ namespace Zefugi.Digraph.Dom
                 (target.MaxConnections != 0 && target._connections.Count == target.MaxConnections))
                 result |= ConnectionResult.MaxConnectionsReached;
 
-            Connection conn = new T();
-            conn.Source = Direction == ConnectorDirection.Output ? this : target;
-            conn.Sink = Direction == ConnectorDirection.Input ? this : target;
-            _connections.Add(conn);
-            target._connections.Add(conn);
+            OnTryConnect<T>(target, ref result);
+
+            if (result == ConnectionResult.Success)
+            {
+                connection = new T();
+                connection.Source = Direction == ConnectorDirection.Output ? this : target;
+                connection.Sink = Direction == ConnectorDirection.Input ? this : target;
+                _connections.Add(connection);
+                target._connections.Add(connection);
+            }
+            else
+                connection = null;
 
             return result;
         }
+
+        protected virtual void OnTryConnect<T>(Connector target, ref ConnectionResult result) { }
     }
 }
