@@ -89,5 +89,7 @@ namespace Zefugi.Digraph.Dom
                 return _list[index];
             }
         }
+
+        public int Count { get { return _list.Count; } }
     }
 }

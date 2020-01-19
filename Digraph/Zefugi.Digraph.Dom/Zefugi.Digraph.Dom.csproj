@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="ConnectionResult.cs" />
     <Compile Include="Connector.cs" />
     <Compile Include="ConnectorDirection.cs" />
     <Compile Include="Graph.cs" />
