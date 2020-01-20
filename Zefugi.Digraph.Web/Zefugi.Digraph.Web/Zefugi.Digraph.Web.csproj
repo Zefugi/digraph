@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="js\Behaviours.js" />
     <Content Include="Junk\Editor.htm" />
     <Content Include="Junk\Editor.js" />
     <Content Include="Web.config" />

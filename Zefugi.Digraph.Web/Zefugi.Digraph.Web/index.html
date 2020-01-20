@@ -1,10 +1,22 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="utf-8">
+    <title>ZoomPanView</title>
+    <style>
+        svg {
+            background-color: silver;
+        }
+    </style>
+    <script src="js/Behaviours.js"></script>
 </head>
 <body>
-    test
+    <div>
+        <svg id="view" width="1000" height="500" viewBox="0 0 1000 500"></svg>
+    </div>
+    <script>
+        let b = new SvgPanZoomBehaviour(document.getElementById('view'));
+    </script>
 </body>
 </html>
