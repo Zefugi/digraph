@@ -1,6 +1,37 @@
-﻿<svg id="@ID" style="background-color: silver;" width="1000" height="1000" viewBox="0 0 1000 1000" onmousedown="pzsMouseDown()" onmouseup="pzsMouseUp()" onmousemove="pzsMouseMove()" onmousewheel="pzsMouseWheel()">
+﻿<svg id="@ID" style="background-color: silver;" width="1000" height="1000" viewBox="0 0 1000 1000" @onmousedown=@MouseDown @onmouseup="@MouseUp" @onmousemove="@MouseMove" @onmousewheel="@MouseWheel">
 
 </svg>
 @code {
     [Parameter] public string ID { get; set; }
+
+    private bool _isDragging = false;
+    private int _offsetX, _offsetY;
+
+    [JSInvokable]
+    private void MouseDown(MouseEventArgs e)
+    {
+        _isDragging = true;
+        _offsetX = (int)e.ClientX;
+        _offsetY = (int)e.ClientY;
+    }
+
+    private void MouseUp(MouseEventArgs e)
+    {
+        _isDragging = false;
+    }
+
+    private void MouseMove(MouseEventArgs e)
+    {
+        if (_isDragging)
+        {
+            int deltaX = (int)e.ClientX - _offsetX;
+            int deltaY = (int)e.ClientY - _offsetY;
+            Console.WriteLine($"Mouse moved by {deltaX}, {deltaY}");
+        }
+    }
+
+    private void MouseWheel(MouseEventArgs e)
+    {
+        Console.WriteLine("Mouse wheel");
+    }
 }
