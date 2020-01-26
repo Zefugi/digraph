@@ -1,4 +1,4 @@
-﻿<svg id="@ID" style="background-color: silver;" width="1000" height="1000" viewBox="@ViewBox">
+﻿<svg id="@ID" style="background-color: silver;" width="@Width" height="@Height" viewBox="@ViewBox">
     <defs>
         <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
             <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5" />
@@ -9,17 +9,20 @@
         </pattern>
     </defs>
     <rect x="-5000" y="-5000" width="10000" height="10000" fill="url(#grid)"
-          @onmousedown=@Grid_MouseDown @onmouseup="@Grid_MouseUp" @onmousemove="@Grid_MouseMove" @onmouseout="@Grid_MouseOut" @onmousewheel="@Grid_MouseWheel" />
+        @onmousedown=@Grid_MouseDown @onmouseup="@Grid_MouseUp" @onmousemove="@Grid_MouseMove" @onmouseout="@Grid_MouseOut" @onmousewheel="@Grid_MouseWheel" />
     @ChildContent
 </svg>
 @code {
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string ID { get; set; }
 
+    [Parameter] public int Width { get; set; } = 800;
+    [Parameter] public int Height { get; set; } = 600;
+
     private double _zoom = 1.0;
     private int _vbX, _vbY;
-    private int _vbW = 1000;
-    private int _vbH = 1000;
+    private int _vbW = 800;
+    private int _vbH = 600;
 
     public int ViewBoxX
     {
@@ -70,6 +73,13 @@
 
     private bool _isDragging = false;
     private int _offsetX, _offsetY;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        UpdateViewBox();
+    }
 
     private void Grid_MouseDown(MouseEventArgs e)
     {
