@@ -10,7 +10,6 @@
     </defs>
     <rect x="-5000" y="-5000" width="10000" height="10000" fill="url(#grid)"
           @onmousedown=@Grid_MouseDown @onmouseup="@Grid_MouseUp" @onmousemove="@Grid_MouseMove" @onmouseout="@Grid_MouseOut" @onmousewheel="@Grid_MouseWheel" />
-    <circle cx="150" cy="0" r="25" fill="green"></circle>
     @ChildContent
 </svg>
 @code {
@@ -118,12 +117,10 @@
 
         double x = (width / 2) + ViewBoxX + e.ClientX;
         double newX = (x * _zoom) - (x * _oldZoom);
-        _vbX = (int)newX;
+        _vbX = -(int)newX;
         double y = (height / 2) + ViewBoxY + e.ClientY;
         double newY = (y * _zoom) - (y * _oldZoom);
-        _vbY = (int)newY;
+        _vbY = -(int)newY;
         UpdateViewBox();
-
-        Console.WriteLine($"{_zoom}, {ViewBox}");
     }
 }
