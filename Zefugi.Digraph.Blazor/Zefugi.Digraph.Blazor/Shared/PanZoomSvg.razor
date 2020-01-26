@@ -1,37 +1,127 @@
-﻿<svg id="@ID" style="background-color: silver;" width="1000" height="1000" viewBox="0 0 1000 1000" @onmousedown=@MouseDown @onmouseup="@MouseUp" @onmousemove="@MouseMove" @onmousewheel="@MouseWheel">
-
+﻿<svg id="@ID" style="background-color: silver;" width="1000" height="1000" viewBox="@ViewBox">
+    <defs>
+        <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5" />
+        </pattern>
+        <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <rect width="100" height="100" fill="url(#smallGrid)" />
+            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="gray" stroke-width="1" />
+        </pattern>
+    </defs>
+    <rect x="-5000" y="-5000" width="10000" height="10000" fill="url(#grid)"
+          @onmousedown=@Grid_MouseDown @onmouseup="@Grid_MouseUp" @onmousemove="@Grid_MouseMove" @onmouseout="@Grid_MouseOut" @onmousewheel="@Grid_MouseWheel" />
+    <circle cx="150" cy="0" r="25" fill="green"></circle>
 </svg>
 @code {
     [Parameter] public string ID { get; set; }
 
+    private double _zoom = 1.0;
+    private int _vbX, _vbY;
+    private int _vbW = 1000;
+    private int _vbH = 1000;
+
+    public int ViewBoxX
+    {
+        get { return _vbX; }
+        set
+        {
+            _vbX = value;
+            UpdateViewBox();
+        }
+    }
+
+    public int ViewBoxY
+    {
+        get { return _vbY; }
+        set
+        {
+            _vbY = value;
+            UpdateViewBox();
+        }
+    }
+
+    public int ViewBoxW
+    {
+        get { return _vbW; }
+        set
+        {
+            _vbW = value;
+            UpdateViewBox();
+        }
+    }
+
+    public int ViewBoxH
+    {
+        get { return _vbH; }
+        set
+        {
+            _vbH = value;
+            UpdateViewBox();
+        }
+    }
+
+    private string ViewBox { get; set; } = $"0 0 1000 1000";
+
+    private void UpdateViewBox()
+    {
+        ViewBox = $"{(int)(_vbX * _zoom)} {(int)(_vbY * _zoom)} {(int)(_vbW * _zoom)} {(int)(_vbH * _zoom)}";
+    }
+
     private bool _isDragging = false;
     private int _offsetX, _offsetY;
 
-    [JSInvokable]
-    private void MouseDown(MouseEventArgs e)
+    private void Grid_MouseDown(MouseEventArgs e)
     {
         _isDragging = true;
         _offsetX = (int)e.ClientX;
         _offsetY = (int)e.ClientY;
     }
 
-    private void MouseUp(MouseEventArgs e)
+    private void Grid_MouseUp(MouseEventArgs e)
     {
         _isDragging = false;
     }
 
-    private void MouseMove(MouseEventArgs e)
+    private void Grid_MouseOut(MouseEventArgs e)
+    {
+        _isDragging = false;
+    }
+
+    private void Grid_MouseMove(MouseEventArgs e)
     {
         if (_isDragging)
         {
             int deltaX = (int)e.ClientX - _offsetX;
             int deltaY = (int)e.ClientY - _offsetY;
-            Console.WriteLine($"Mouse moved by {deltaX}, {deltaY}");
+
+            ViewBoxX -= deltaX;
+            ViewBoxY -= deltaY;
+
+            _offsetX = (int)e.ClientX;
+            _offsetY = (int)e.ClientY;
         }
     }
 
-    private void MouseWheel(MouseEventArgs e)
+    private void Grid_MouseWheel(WheelEventArgs e)
     {
-        Console.WriteLine("Mouse wheel");
+        int width = 1000;
+        int height = 1000;
+        double _oldZoom = _zoom;
+
+        _zoom += e.DeltaY / 5.0;
+        if (_zoom < 1.0)
+            _zoom = 1.0;
+        else if (_zoom > 10.0)
+            _zoom = 10.0;
+
+        double x = (width / 2) + ViewBoxX + e.ClientX;
+        double newX = (x * _zoom) - (x * _oldZoom);
+        _vbX = (int)newX;
+        double y = (height / 2) + ViewBoxY + e.ClientY;
+        double newY = (y * _zoom) - (y * _oldZoom);
+        _vbY = (int)newY;
+        UpdateViewBox();
+
+        Console.WriteLine($"{_zoom}, {ViewBox}");
     }
 }
