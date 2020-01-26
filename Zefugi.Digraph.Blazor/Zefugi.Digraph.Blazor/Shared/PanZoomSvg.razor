@@ -11,8 +11,10 @@
     <rect x="-5000" y="-5000" width="10000" height="10000" fill="url(#grid)"
           @onmousedown=@Grid_MouseDown @onmouseup="@Grid_MouseUp" @onmousemove="@Grid_MouseMove" @onmouseout="@Grid_MouseOut" @onmousewheel="@Grid_MouseWheel" />
     <circle cx="150" cy="0" r="25" fill="green"></circle>
+    @ChildContent
 </svg>
 @code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string ID { get; set; }
 
     private double _zoom = 1.0;
