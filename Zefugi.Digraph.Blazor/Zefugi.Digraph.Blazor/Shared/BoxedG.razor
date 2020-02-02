@@ -1,0 +1,20 @@
+﻿@inject IJSRuntime js
+<g @ref="_g">
+    <rect width="100" height="100" x="300" y="100" fill="slategray"></rect>
+</g>
+@code {
+    private ElementReference _g;
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        var obj = await js.InvokeAsync<object>("getBBox", _g);
+        var bbox = obj.ToString().Split(',');
+        int x = int.Parse(bbox[0]);
+        int y = int.Parse(bbox[1]);
+        int width = int.Parse(bbox[2]);
+        int height = int.Parse(bbox[3]);
+
+
+    }
+}
