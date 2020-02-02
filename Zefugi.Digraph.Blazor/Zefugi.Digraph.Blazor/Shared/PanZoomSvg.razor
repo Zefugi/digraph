@@ -68,7 +68,9 @@
 
     private void UpdateViewBox()
     {
-        ViewBox = $"{(int)(_vbX * _zoom)} {(int)(_vbY * _zoom)} {(int)(_vbW * _zoom)} {(int)(_vbH * _zoom)}";
+        var vb = $"{(int)(_vbX * _zoom)} {(int)(_vbY * _zoom)} {(int)(_vbW * _zoom)} {(int)(_vbH * _zoom)}";
+        if (vb != ViewBox)
+            ViewBox = vb;
     }
 
     private bool _isDragging = false;

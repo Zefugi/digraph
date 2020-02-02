@@ -1,8 +1,9 @@
 ﻿@inject IJSRuntime js
 <g @ref="_g">
-    <rect width="100" height="100" x="300" y="100" fill="slategray"></rect>
+    @ChildContent
 </g>
 @code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
     private ElementReference _g;
 
     protected override async void OnAfterRender(bool firstRender)
@@ -14,7 +15,5 @@
         int y = int.Parse(bbox[1]);
         int width = int.Parse(bbox[2]);
         int height = int.Parse(bbox[3]);
-
-
     }
 }
