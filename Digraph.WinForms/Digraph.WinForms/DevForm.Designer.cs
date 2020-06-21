@@ -34,6 +34,7 @@
             // graphPanel1
             // 
             this.graphPanel1.AutoScroll = true;
+            this.graphPanel1.BackColor = System.Drawing.Color.Magenta;
             this.graphPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graphPanel1.Location = new System.Drawing.Point(0, 0);
             this.graphPanel1.Name = "graphPanel1";

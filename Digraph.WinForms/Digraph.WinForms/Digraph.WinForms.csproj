@@ -55,11 +55,20 @@
     <Compile Include="GraphControls\GraphCanvas.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="GraphControls\GraphFigure.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphControls\GraphNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphInformation\DigraphFigure.cs" />
+    <Compile Include="GraphInformation\DigraphNode.cs" />
     <Compile Include="GraphPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestClass.cs" />
     <EmbeddedResource Include="DevForm.resx">
       <DependentUpon>DevForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -18,7 +18,6 @@ namespace Digraph.WinForms
             BackColor = Color.Magenta;
             
             Canvas = new GraphCanvas() {
-                BackColor = Color.SlateGray,
                 Size = ClientSize,
             };
             Controls.Add(Canvas);
