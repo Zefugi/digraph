@@ -20,13 +20,13 @@ namespace Digraph.WinForms.GraphInformation
 
             figure.ControlNodes.Add(new DigraphNode()
             {
-                Title = ">",
+                Title = "",
                 DataType = null,
                 Direction = NodeDirection.Input
             });
             figure.ControlNodes.Add(new DigraphNode()
             {
-                Title = ">",
+                Title = "",
                 DataType = null,
                 Direction = NodeDirection.Output
             });

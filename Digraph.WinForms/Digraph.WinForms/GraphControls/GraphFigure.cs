@@ -17,6 +17,9 @@ namespace Digraph.WinForms.GraphControls
 
         private Point _mouseMoveOffset = Point.Empty;
 
+        public ControlCollection ControlNodes { get { return _controlNodes.Controls; } }
+        public ControlCollection DataNodes { get { return _dataNodes.Controls; } }
+
         public GraphFigure(DigraphFigure figure)
         {
             Figure = figure;
@@ -52,6 +55,7 @@ namespace Digraph.WinForms.GraphControls
             foreach (var node in Figure.ControlNodes)
             {
                 var ctrl = new GraphNode(node);
+                node.Tag = ctrl;
                 ctrl.Resize += RecomputeLayout;
                 _controlNodes.Controls.Add(ctrl);
             }
@@ -59,6 +63,7 @@ namespace Digraph.WinForms.GraphControls
             foreach (var node in Figure.DataNodes)
             {
                 var data = new GraphNode(node);
+                node.Tag = data;
                 data.Resize += RecomputeLayout;
                 _dataNodes.Controls.Add(data);
             }
@@ -83,6 +88,7 @@ namespace Digraph.WinForms.GraphControls
                 loc.Offset(_mouseMoveOffset);
                 loc.Offset(e.Location);
                 Location = loc;
+                Canvas.Refresh();
             }
         }
 
@@ -133,6 +139,17 @@ namespace Digraph.WinForms.GraphControls
                 Width = newWidth;
                 _title.Location = new Point((Width - _title.Width) / 2, 0);
                 RecomputeLayout(sender, e);
+            }
+        }
+
+        public GraphCanvas Canvas
+        {
+            get
+            {
+                Control c = this;
+                while (!(c is GraphCanvas) && c.Parent != null)
+                    c = c.Parent;
+                return (c is GraphCanvas ? (GraphCanvas)c : null);
             }
         }
     }

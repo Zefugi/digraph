@@ -34,7 +34,12 @@ namespace Digraph.WinForms.GraphControls
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.Silver,
                 Size = new Size(13, 13),
+                AllowDrop = true,
             };
+
+            _connectionPoint.MouseDown += _connectionPoint_MouseDown;
+            _connectionPoint.DragEnter += _connectionPoint_DragEnter;
+            _connectionPoint.DragDrop += _connectionPoint_DragDrop;
 
             switch(node.Direction)
             {
@@ -53,6 +58,37 @@ namespace Digraph.WinForms.GraphControls
             _connectionPoint.Resize += RecomputeLayout;
 
             RecomputeLayout(this, null);
+        }
+
+        private void _connectionPoint_DragEnter(object sender, DragEventArgs e)
+        {
+            GraphNode source = (GraphNode)e.Data.GetData(typeof(GraphNode));
+
+            if (source.Node.CanConnectTo(Node))
+                e.Effect = DragDropEffects.Link;
+        }
+
+        private void _connectionPoint_DragDrop(object sender, DragEventArgs e)
+        {
+            GraphNode source = (GraphNode)e.Data.GetData(typeof(GraphNode));
+
+            Node.ConnectTo(source.Node);
+
+            Canvas.UpdateConnectionsForNode();
+        }
+
+        private void _connectionPoint_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch(e.Button)
+            {
+                case MouseButtons.Left:
+                    _connectionPoint.DoDragDrop(this, DragDropEffects.Link);
+                    break;
+                case MouseButtons.Right:
+                    while (Node.Connections.Count != 0)
+                        Node.DisconnectFrom(Node.Connections[0]);
+                    break;
+            }
         }
 
         private void RecomputeLayout(object sender, EventArgs e)
@@ -77,6 +113,46 @@ namespace Digraph.WinForms.GraphControls
                 Width = xOffset;
             if (Height != maxHeight)
                 Height = maxHeight;
+        }
+
+        public GraphCanvas Canvas
+        {
+            get
+            {
+                Control c = this;
+                while (!(c is GraphCanvas) && c.Parent != null)
+                    c = c.Parent;
+                return (c is GraphCanvas ? (GraphCanvas)c : null);
+            }
+        }
+
+        public GraphFigure Figure
+        {
+            get
+            {
+                Control c = this;
+                while (!(c is GraphFigure) && c.Parent != null)
+                    c = c.Parent;
+                return (c is GraphFigure ? (GraphFigure)c : null);
+            }
+        }
+
+        public Point CanvasPoint
+        {
+            get
+            {
+                Control c = this;
+                Point p = Point.Empty;
+                while(!(c is GraphCanvas) && c.Parent != null)
+                {
+                    p.Offset(c.Location);
+                    c = c.Parent;
+                }
+                if (c is GraphCanvas)
+                    return p;
+                else
+                    return Point.Empty;
+            }
         }
     }
 }
