@@ -21,6 +21,7 @@ namespace Digraph.WinForms.GraphInformation
         public string Title;
         public Type DataType;
         public NodeDirection Direction;
+        public bool ByRef;
 
         private readonly List<DigraphNode> _connections = new List<DigraphNode>();
 
@@ -31,7 +32,12 @@ namespace Digraph.WinForms.GraphInformation
 
         public bool CanConnectTo(DigraphNode node)
         {
-            return Direction != node.Direction && DataType == node.DataType;
+            if (node == this)
+                return false;
+            if ((DataType == null || node.DataType == null))
+                return DataType == node.DataType;
+            return Direction != node.Direction &&
+                DataType.Name.Replace("&", "") == node.DataType.Name.Replace("&", "");
         }
 
         public void ConnectTo(DigraphNode node)

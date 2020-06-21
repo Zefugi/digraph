@@ -22,29 +22,36 @@ namespace Digraph.WinForms.GraphInformation
             {
                 Title = "",
                 DataType = null,
-                Direction = NodeDirection.Input
+                Direction = NodeDirection.Input,
+                ByRef = false,
             });
             figure.ControlNodes.Add(new DigraphNode()
             {
                 Title = "",
                 DataType = null,
-                Direction = NodeDirection.Output
+                Direction = NodeDirection.Output,
+                ByRef = false,
             });
 
             if (method.ReturnType != typeof(void))
+            {
                 figure.DataNodes.Add(new DigraphNode()
                 {
                     Title = "Ret",
                     DataType = method.ReturnType,
-                    Direction = NodeDirection.Output
+                    Direction = NodeDirection.Output,
+                    ByRef = false,
                 });
+            }
+
             foreach(var param in method.GetParameters())
             {
                 figure.DataNodes.Add(new DigraphNode()
                 {
                     Title = param.Name,
                     DataType = param.ParameterType,
-                    Direction = param.IsOut ? NodeDirection.Output : NodeDirection.Input
+                    Direction = param.IsOut ? NodeDirection.Output : NodeDirection.Input,
+                    ByRef = param.Name.IndexOf('&') != -1,
                 });
             }
 

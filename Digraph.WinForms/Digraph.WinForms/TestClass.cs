@@ -8,7 +8,7 @@ namespace Digraph.WinForms
 {
     public class TestClass
     {
-        public void Do(bool b, int i) { }
-        public bool Read(char c, float f) { return true; }
+        public void Do(bool b, int i, out float f) { f = 0.0f; }
+        public bool Read(char c, float f, ref float rf) { return true; }
     }
 }
