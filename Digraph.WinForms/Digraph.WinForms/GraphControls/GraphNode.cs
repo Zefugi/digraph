@@ -33,7 +33,7 @@ namespace Digraph.WinForms.GraphControls
             {
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.Silver,
-                Size = new Size(13, 13),
+                Size = new Size(20, 20),
                 AllowDrop = true,
             };
 
@@ -86,7 +86,10 @@ namespace Digraph.WinForms.GraphControls
                     break;
                 case MouseButtons.Right:
                     while (Node.Connections.Count != 0)
+                    {
                         Node.DisconnectFrom(Node.Connections[0]);
+                    }
+                    Canvas.UpdateConnectionsForNode();
                     break;
             }
         }
