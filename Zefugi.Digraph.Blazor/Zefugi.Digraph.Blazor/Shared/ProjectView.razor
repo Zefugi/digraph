@@ -1,0 +1,18 @@
+﻿@using Zefugi.Digraph.Model
+
+<b>Project: @Project.Title</b>
+
+@code {
+    [Parameter] public Project Project { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Project == null)
+        {
+            Project = new Project()
+            {
+                Title = "Untitled",
+            };
+        }
+    }
+}
