@@ -1,6 +1,8 @@
 ﻿@using Zefugi.Digraph.Model
+@inject NavigationManager NavigationManager
 
-<b>Project: @Project.Title</b>
+<b>Project: @Project.Title</b><br />
+<button @onclick="CreateModel_Click">New Model</button>
 
 @code {
     [Parameter] public Project Project { get; set; }
@@ -14,5 +16,10 @@
                 Title = "Untitled",
             };
         }
+    }
+
+    private void CreateModel_Click()
+    {
+        NavigationManager.NavigateTo("/ModelView");
     }
 }
